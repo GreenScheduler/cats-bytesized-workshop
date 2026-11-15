@@ -2,53 +2,23 @@
 title: Setup
 ---
 
-FIXME: Setup instructions live in this document. Please specify the tools and
-the data sets the Learner needs to have installed.
 
-## Data Sets
+## Installing CATS
 
-<!--
-FIXME: place any data you want learners to use in `episodes/data` and then use
-       a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
-       link to it, replacing the example.com link.
--->
-Download the [data zip file](https://example.com/FIXME) and unzip it to your Desktop
+Optionally create a new virtual environment:
 
-## Software Setup
+```bash
+python -m venv cats-env
+source cats-env/bin/activate
+```
 
-::::::::::::::::::::::::::::::::::::::: discussion
+Install CATS using pip. 
 
-### Details
+```bash
+python -m pip install climate-aware-task-scheduler
+```
 
-Setup for different systems can be presented in dropdown menus via a `spoiler`
-tag. They will join to this discussion block, so you can give a general overview
-of the software used in this lesson here and fill out the individual operating
-systems (and potentially add more, e.g. online setup) in the solutions blocks.
+### Installing a scheduler
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::: spoiler
-
-### Windows
-
-Use PuTTY
-
-::::::::::::::::::::::::
-
-:::::::::::::::: spoiler
-
-### MacOS
-
-Use Terminal.app
-
-::::::::::::::::::::::::
-
-
-:::::::::::::::: spoiler
-
-### Linux
-
-Use Terminal
-
-::::::::::::::::::::::::
+To fully use CATS you will need a scheduler such as `at` or `slurm`. Without one CATS will simply tell you what time the job should be started at. Most Linux and Mac systems will already have `at` installed. Slurm is typically only available on HPC clusters. Windows does not come with a scheduler that CATS can use, so Windows users will either need to manually start a job or use WSL where `at` can be installed. 
 
