@@ -186,9 +186,76 @@ scancel 1245678
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 5: Using a CATS configuration file
+## Challenge 5: Using a CATS configuration file to specify location
 
 Instead of specifying arguments on the command line, CATS can also read these from a configuration file. This is useful if you are repeatedly running CATS.
+
+Note: Currently (as of v1.2.1) CATS uses a YAML file for this configuration, in the near future this will change to a TOML file which has slightly different formatting, but the keys used in the file are the same. 
+
+Let's create a file called `myconfig.yaml` and set our location inside it.
+
+```yaml
+location: "OX1"
+```
+
+Now we can re-run CATS with the `--config` option and without the `--location` option.
+
+```bash
+cats -d 180 -s at -c "echo hello world" --config myconfig.yaml
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 6: Improving carbon footprint estimation by specifying the system properties
+
+So far CATS has been trying to minimise the carbon intensity of running our job, but we don't know how much carbon dioxide we've emitted/saved since we've not specified anything about the system that will be running the job. For this to work we need to specify a few things about the profile of the system we're running on:
+
+* The Power Usage Efficiency (PUE) of the data centre running the job, this is the ratio of power going to non-compute tasks like cooling and the compute itself. A typical value is between 1.2 and 2.0.
+* The power used by each CPU core and how many CPU cores we'll be using. CATS assumes we are keeping the CPU busy during the job's execution.
+* The amount of memory (RAM) the job is using.
+
+We can specify all of this in the config file:
+
+```yaml
+location: "OX1"
+
+PUE: 1.4
+
+profiles:
+  my_cpu_only_profile:
+    cpu:
+      model: "Xeon Gold 6142"
+      power: 9.4 # in W, per core
+      nunits: 2
+```
+
+Now we need to tell CATS how much memory (in gigabytes) using the `--memory` option, how many CPU cores we'll use with the `--cpu` option and adding the `--footprint` option to print out the carbon footprint.
+
+```bash
+cats -d 180 -s at -c "echo hello world" --config myconfig.yaml --memory 1 --cpu 1 --footprint 
+```
+
+```output
+WARNING:root:Using default profile my_cpu_only_profile
+
+The.____ ..... __ .... ________ . ______...
+.. /  __)...../  \....(__    __).)  ____)....
+..|  /......./    \......|  |...(  (___........
+..| |limate./  ()  \ware.|  |ask.\___  \cheduler
+..|  \__...|   __   |....|  |....____)  )....
+...\    )..|  (..)  |....|  |...(      (..
+
+
+Best job start time                       = 2026-11-17 09:30:09
+Carbon intensity if job started now       = 231.81 gCO2eq/kWh
+Carbon intensity at optimal time          = 96.08 gCO2eq/kWh
+Estimated emissions if job started now    = 9.514526420101127
+Estimated emissions at optimal time       = 3.9436571399415894 (- 5.570869280159538)
+warning: commands will be executed using /bin/sh
+job 59 at Tue Nov 17 09:30:00 2026
+```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
