@@ -126,29 +126,60 @@ atrm 1
 
 ## Challenge 4: Running CATS with the Slurm scheduler
 
-The Slurm scheduler is a popular open source scheduler used on many HPC systems including several UK national facility systems such as Isambard, Archer, Bede, Baskerville, Dawn and JASMIN. CATS can invoke Slurm by using setting the `-s` or `--scheduler` option to "slurm" and the `-c` option to specify the command to run. 
+The Slurm scheduler is a popular open source scheduler used on many HPC systems including several UK national facility systems such as Isambard, Archer, Bede, Baskerville, Dawn and JASMIN. CATS can invoke Slurm by using setting the `-s` or `--scheduler` option to "slurm" and the `-c` option to specify the command to run. In this case the command needs to be a Slurm job file that itself specifies what Slurm will run and parameters given to Slurm. 
+
+Let's write out a Slurm job file that does similar to what we used above. The `--account`, `--qos` and `--partition` options will vary between systems and aren't always needed. 
+
+```
+#!/bin/bash
+#SBATCH --job-name test_job
+#SBATCH --time 00:01 # timeout in HH:MM
+#SBATCH --account=myaccount 
+#SBATCH --qos=debug 
+#SBATCH --partition=debug
+
+echo "Hello World"
+```
 
 ```bash
-cats -d 180 -l L1 -s slurm -c "echo hello world"
+cats -d 1 -l L1 -s slurm -c job.slurm
 ```
 This should finish the output with the job's number and scheduled start time. 
 
 ```output
+
+The.____ ..... __ .... ________ . ______...
+.. /  __)...../  \....(__    __).)  ____)....
+..|  /......./    \......|  |...(  (___........
+..| |limate./  ()  \ware.|  |ask.\___  \cheduler
+..|  \__...|   __   |....|  |....____)  )....
+...\    )..|  (..)  |....|  |...(      (..
+
+
+Best job start time                       = 2026-11-17 10:30:17
+Carbon intensity if job started now       = 199.03 gCO2eq/kWh
+Carbon intensity at optimal time          = 93.75 gCO2eq/kWh
+Submitted batch job 1245678
+
 ```
 
-We can also check the queue with the `squeue` command:
+We can also check the queue with the `squeue` command, the `--me` option just displays jobs owned by your user.
 
 ```bash
-squeue
+squeue --me
 ```
 
 ```output
+   JOBID PARTIT       QOS                 NAME       USER NODE  CPUS ST         TIME    TIME_LEFT PRIORITY NODELIST(REASON)
+ 1245678  debug     debug             test_job   colinsau    1     1 PD         0:00         1:00   171231 (BeginTime)
 ```
+
+The "(BeginTime)" in the final column means the job has a specified time to start (2026-11-17 10:30:17 in the above example) that we've not yet reached. 
 
 If we decide we don't want to run the job then we can use the `scancel` command to remove it from the queue.
 
 ```bash
-scancel 12345
+scancel 1245678
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
