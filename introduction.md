@@ -145,7 +145,7 @@ echo "Hello World"
 ```
 
 ```bash
-cats -d 1 -l L1 -s slurm -c job.slurm
+cats -d 1 -l L1 -s sbatch -c job.slurm
 ```
 This should finish the output with the job's number and scheduled start time. 
 
