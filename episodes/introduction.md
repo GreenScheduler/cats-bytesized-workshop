@@ -20,12 +20,14 @@ exercises: 15 # exercise time in minutes
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: Can you do it?
+## Challenge 1: Run CATS without a scheduler
 
-What is the output of this command?
+CATS has one required argument, `-d` or `--duration` for the duration of the job in minutes. This is usually a best estimate, but it should be the upper end of what is likely. 
 
-```r
-paste("This", "new", "lesson", "looks", "good")
+By default CATS uses the UK Carbon Intensity provider to get grid carbon intensity. This needs to know your approximate location to work out which of the UK's (or more precisely Britain's, as Northern Ireland is part of the Irish grid) 14 grid regions you are located in. Obviously this needs to be somewhere in the UK for there to be any valid UK Carbon Intensity data. We'll show an example of looking up locations outside the UK later on. With no location specified CATS will try to work out your location from your internet IP address. 
+
+```bash
+cats -d 180 
 ```
 
 :::::::::::::::::::::::: solution 
@@ -33,57 +35,69 @@ paste("This", "new", "lesson", "looks", "good")
 ## Output
  
 ```output
-[1] "This new lesson looks good"
+WARNING:root:Use of config.yaml is deprecated. We suggest renaming to 'cats_config.yml'
+
+WARNING:root:location not provided. Estimating location from IP address: SA68.
+
+The.____ ..... __ .... ________ . ______...
+.. /  __)...../  \....(__    __).)  ____)....
+..|  /......./    \......|  |...(  (___........
+..| |limate./  ()  \ware.|  |ask.\___  \cheduler
+..|  \__...|   __   |....|  |....____)  )....
+...\    )..|  (..)  |....|  |...(      (..
+
+
+Best job start time                       = 2026-11-17 08:49:43
+Carbon intensity if job started now       = 212.86 gCO2eq/kWh
+Carbon intensity at optimal time          = 105.80 gCO2eq/kWh
 ```
 
 :::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::
 
 
-## Challenge 2: how do you nest solutions within challenge blocks?
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 2: specify your location to CATS
+
+CATS can be given a location by using the first part of a UK postcode, for example L1 for Liverpool, SW1A for London (Westminster), OX1 for Oxford, M1 for Manchester, EH1 for Edinburgh or IV1 for Inverness. This is specified with the `-l` or `--location` option. 
+
+Try specifying a location for your job using the first part of a UK postcode. Try comparing different regions using the postcodes listed above. On a windy day Edinburgh or Manchester will often have lower carbon intensity since those regions have a lot of wind turbines. On sunnier days Oxford or London can be lower as there is more solar power in the South of England. You can check the current carbon intensity on the website [https://carbonintensity.org.uk](https://carbonintensity.org.uk). 
+
 
 :::::::::::::::::::::::: solution 
 
-You can add a line with at least three colons and a `solution` tag.
+```bash
+cats -d 180 -l SW1A
+```
+
+```bash
+cats -d 180 -l OX1
+```
+```bash
+cats -d 180 -l L1
+```
+
+```bash
+cats -d 180 -l M1
+```
+
+
+```bash
+cats -d 180 -l EH1
+```
+
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Figures
 
-You can use standard markdown for static figures with the following syntax:
-
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
-
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
-
-::::::::::::::::::::::::::::::::::::: callout
-
-Callout sections can highlight information.
-
-They are sometimes used to emphasise particularly important points
-but are also used in some lessons to present "asides": 
-content that is not central to the narrative of the lesson,
-e.g. by providing the answer to a commonly-asked question.
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-## Math
-
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
-
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
-
-Cool, right?
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- The `--duration` or `-d` options to CATS specify the job duration.
+- The `--location` or `-l` options to CATS specify the location where the job is running. This is used to identify the grid region it is running in. By default this uses the UK Carbon Intensity data provider.
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
