@@ -1,0 +1,2 @@
+climate-aware-task-scheduler==1.2.1
+climate-aware-task-scheduler[plots]
