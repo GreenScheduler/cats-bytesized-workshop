@@ -260,6 +260,27 @@ job 59 at Tue Nov 17 09:30:00 2026
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 6: Outputting a graph showing the carbon intensity
+
+CATS can create a graph illustrating the carbon intensity of the job running now and at its target time. To do this we first need to install the plots sub-package. 
+
+```bash
+pip install 'climate-aware-task-scheduler[plots]'
+```
+
+Now run CATS with the `--plot` option and you should see a graph illustrating the carbon intensity over the next 48 hours with the job starting now in red and at its target time in green. Add the `--save-plot` option followed by a filename if you want to save this file instead of displaying it. 
+
+```bash
+cats -d 180 -s at -c "echo hello world" --plot --save-plot cats-savings.png
+```
+
+![An example plot of the savings from CATS](cats-savings.png)
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - The `--duration` or `-d` options to CATS specify the job duration.
