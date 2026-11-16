@@ -219,6 +219,10 @@
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#running-cats-without-a-scheduler">Running CATS without a scheduler</a></li>
+<li><a href="#specifying-locations">Specifying Locations</a></li>
+<li><a href="#running-cats-with-a-scheduler">Running CATS with a Scheduler</a></li>
+<li><a href="#using-a-configuration-file">Using a Configuration File</a></li>
+<li><a href="#plotting-carbon-intensity">Plotting Carbon Intensity</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -361,7 +365,7 @@ your location from your internet IP address.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -386,7 +390,8 @@ Carbon intensity at optimal time          = 105.80 gCO2eq/kWh</code></pre>
 </div>
 </div>
 </div>
-<div id="challenge-2-specify-your-location-to-cats" class="callout challenge">
+</section><section><h2 class="section-heading" id="specifying-locations">Specifying Locations<a class="anchor" aria-label="anchor" href="#specifying-locations"></a></h2>
+<hr class="half-width"><div id="challenge-2-specify-your-location-to-cats" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -415,7 +420,7 @@ the website <a href="https://carbonintensity.org.uk" class="external-link">https
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -447,7 +452,8 @@ the website <a href="https://carbonintensity.org.uk" class="external-link">https
 </div>
 </div>
 </div>
-<div id="challenge-3-running-cats-with-the-at-scheduler" class="callout challenge">
+</section><section><h2 class="section-heading" id="running-cats-with-a-scheduler">Running CATS with a Scheduler<a class="anchor" aria-label="anchor" href="#running-cats-with-a-scheduler"></a></h2>
+<hr class="half-width"><div id="challenge-3-running-cats-with-the-at-scheduler" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -574,7 +580,8 @@ yet reached.</p>
 </div>
 </div>
 </div>
-<div id="challenge-5-using-a-cats-configuration-file-to-specify-location" class="callout challenge">
+</section><section><h2 class="section-heading" id="using-a-configuration-file">Using a Configuration File<a class="anchor" aria-label="anchor" href="#using-a-configuration-file"></a></h2>
+<hr class="half-width"><div id="challenge-5-using-a-cats-configuration-file-to-specify-location" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -674,6 +681,38 @@ warning: commands will be executed using /bin/sh
 job 59 at Tue Nov 17 09:30:00 2026</code></pre>
 </div>
 </div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="plotting-carbon-intensity">Plotting Carbon Intensity<a class="anchor" aria-label="anchor" href="#plotting-carbon-intensity"></a></h2>
+<hr class="half-width"><div id="challenge-6-outputting-a-graph-showing-the-carbon-intensity" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div id="challenge-6-outputting-a-graph-showing-the-carbon-intensity" class="callout-inner">
+<h3 class="callout-title">Challenge 6: Outputting a graph showing the
+carbon intensity</h3>
+<div class="callout-content">
+<p>CATS can create a graph illustrating the carbon intensity of the job
+running now and at its target time. To do this we first need to install
+the plots sub-package.</p>
+<div class="codewrapper sourceCode" id="cb24">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" tabindex="-1" aria-label="code-block-24-1"></a><span class="ex">pip</span> install <span class="st">'climate-aware-task-scheduler[plots]'</span></span></code></pre>
+</div>
+<p>Now run CATS with the <code>--plot</code> option and you should see a
+graph illustrating the carbon intensity over the next 48 hours with the
+job starting now in red and at its target time in green. Add the
+<code>--save-plot</code> option followed by a filename if you want to
+save this file instead of displaying it.</p>
+<div class="codewrapper sourceCode" id="cb25">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1" aria-label="code-block-25-1"></a><span class="ex">cats</span> <span class="at">-d</span> 180 <span class="at">-s</span> at <span class="at">-c</span> <span class="st">"echo hello world"</span> <span class="at">--plot</span> <span class="at">--save-plot</span> cats-savings.png</span></code></pre>
+</div>
+<figure><img src="cats-savings.png" alt="An example plot of the savings from CATS" class="figure mx-auto d-block"><div class="figcaption">An example plot of the savings from CATS</div>
+</figure></div>
 </div>
 </div>
 <div id="keypoints1" class="callout keypoints">
