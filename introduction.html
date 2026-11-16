@@ -723,11 +723,21 @@ save this file instead of displaying it.</p>
 <div class="callout-inner">
 <div class="callout-content">
 <ul><li>The <code>--duration</code> or <code>-d</code> options to CATS
-specify the job duration.</li>
+specifies the job duration.</li>
 <li>The <code>--location</code> or <code>-l</code> options to CATS
-specify the location where the job is running. This is used to identify
-the grid region it is running in. By default this uses the UK Carbon
-Intensity data provider.</li>
+specifies the location where the job is running. This is used to
+identify the grid region it is running in. By default this uses the UK
+Carbon Intensity data provider.</li>
+<li>The <code>--scheduler</code> or <code>-s</code> option to CATS
+specifies the scheduler type. Currently this can be <code>at</code> or
+<code>sbatch</code> (for Slurm).</li>
+<li>CATS can use a configuration file to specify location and system
+properties such as PUE, CPU power consumption and number of cores with
+the <code>--config</code> and <code>--profile</code> options.</li>
+<li>CATS can make a graph of the forecast carbon intensity, showing the
+carbon intensity for running now and at the scheduled time. This is done
+with the <code>--plot</code> option and can be saved with the
+<code>--save-plot</code> option.</li>
 </ul></div>
 </div>
 </div>
