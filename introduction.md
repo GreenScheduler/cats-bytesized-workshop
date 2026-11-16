@@ -16,7 +16,7 @@ exercises: 15 # exercise time in minutes
 - How to run CATS jobs with the slurm scheduler.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Introduction
+## Running CATS without a scheduler
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -87,10 +87,79 @@ cats -d 180 -l M1
 cats -d 180 -l EH1
 ```
 
-
+cats -d 180 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 3: Running CATS with the at scheduler
+
+The `at` scheduler dates back to early versions of a Unix and is used to run a given command at a certain time. It features some basic job queueing capabilities where multiple jobs can be waiting to run at different times. CATS can invoke `at` automatically by using setting the `-s` or `--scheduler` option to "at" and the `-c` option to specify the command to run. 
+
+```bash
+cats -d 180 -l L1 -s at -c "echo hello world"
+```
+This should finish the output with the job's number and scheduled start time. 
+
+```output
+job 1 at Tue Nov 17 22:50:00 2026
+```
+We can also check the queue with the `atq` command:
+
+```bash
+atq
+```
+
+```output
+1	Tue Nov 17 22:50:00 2026 a colin
+```
+
+If we decide we don't want to run the job then we can use the `atrm` command to remove it from the queue.
+
+```bash
+atrm 1
+```
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 4: Running CATS with the Slurm scheduler
+
+The Slurm scheduler is a popular open source scheduler used on many HPC systems including several UK national facility systems such as Isambard, Archer, Bede, Baskerville, Dawn and JASMIN. CATS can invoke Slurm by using setting the `-s` or `--scheduler` option to "slurm" and the `-c` option to specify the command to run. 
+
+```bash
+cats -d 180 -l L1 -s slurm -c "echo hello world"
+```
+This should finish the output with the job's number and scheduled start time. 
+
+```output
+```
+
+We can also check the queue with the `squeue` command:
+
+```bash
+squeue
+```
+
+```output
+```
+
+If we decide we don't want to run the job then we can use the `scancel` command to remove it from the queue.
+
+```bash
+scancel 12345
+```
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 5: Using a CATS configuration file
+
+Instead of specifying arguments on the command line, CATS can also read these from a configuration file. This is useful if you are repeatedly running CATS.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
