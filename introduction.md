@@ -288,8 +288,11 @@ cats -d 180 -s at -c "echo hello world" --plot --save-plot cats-savings.png
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- The `--duration` or `-d` options to CATS specify the job duration.
-- The `--location` or `-l` options to CATS specify the location where the job is running. This is used to identify the grid region it is running in. By default this uses the UK Carbon Intensity data provider.
+- The `--duration` or `-d` options to CATS specifies the job duration.
+- The `--location` or `-l` options to CATS specifies the location where the job is running. This is used to identify the grid region it is running in. By default this uses the UK Carbon Intensity data provider.
+- The `--scheduler` or `-s` option to CATS specifies the scheduler type. Currently this can be `at` or `sbatch` (for Slurm).
+- CATS can use a configuration file to specify location and system properties such as PUE, CPU power consumption and number of cores with the `--config` and `--profile` options.
+- CATS can make a graph of the forecast carbon intensity, showing the carbon intensity for running now and at the scheduled time. This is done with the `--plot` option and can be saved with the `--save-plot` option.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
